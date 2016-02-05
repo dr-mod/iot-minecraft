@@ -1,0 +1,21 @@
+apply plugin : 'java'
+
+jar {
+  manifest { 
+    attributes "Main-Class": "org.drmod.EntryPoint"
+  }  
+
+  from {
+    configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+  }
+}
+
+build.dependsOn.remove('check')
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile 'com.pi4j:pi4j-core:1.0'
+}
